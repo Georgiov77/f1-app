@@ -42,4 +42,10 @@ export const createStyles = (colors: Colors) => StyleSheet.create({
     tabTextActive: {
         color: colors.text,
     },
+    selectHint: {
+        fontSize: fontSize.sm,
+        color: colors.primary,
+        textAlign: 'center',
+        paddingVertical: spacing.sm,
+    },
 });

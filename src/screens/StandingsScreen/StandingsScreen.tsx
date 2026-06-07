@@ -8,6 +8,8 @@ import { ConstructorRow } from '@components/ConstructorRow/ConstructorRow';
 import {EmptyState} from "@components/EmptyState/EmptyState";
 import { createStyles } from './StandingsScreen.styles';
 import { useTheme } from '../../context/ThemeContext';
+import { H2HCard } from '@components/H2HCard/H2HCard';
+import type { DriverStanding } from '@f1types/f1';
 
 type Props = NativeStackScreenProps<StandingsStackParams, 'StandingsList'>;
 
@@ -15,7 +17,10 @@ export function StandingsScreen({ navigation }: Props) {
     const { colors } = useTheme();
     const styles = createStyles(colors);
     const { drivers, constructors, isLoading, error, refresh } = useStandings();
-    const [activeTab, setActiveTab] = useState<'drivers' | 'constructors'>('drivers');
+    const [activeTab, setActiveTab] = useState<'drivers' | 'constructors' | 'h2h'>('drivers');
+    const [driver1, setDriver1] = useState<DriverStanding | null>(null);
+    const [driver2, setDriver2] = useState<DriverStanding | null>(null);
+    const [selectingSlot, setSelectingSlot] = useState<1 | 2 | null>(null);
     const [refreshing, setRefreshing] = useState(false);
 
     const onRefresh = async () => {
@@ -24,15 +29,18 @@ export function StandingsScreen({ navigation }: Props) {
         setRefreshing(false);
     };
 
+    const handleDriverSelect = (driver: DriverStanding) => {
+        if (selectingSlot === 1) setDriver1(driver);
+        if (selectingSlot === 2) setDriver2(driver);
+        setSelectingSlot(null);
+        setActiveTab('h2h');
+    };
+
     return (
         <ScrollView
             style={styles.container}
             refreshControl={
-                <RefreshControl
-                    refreshing={refreshing}
-                    onRefresh={onRefresh}
-                    tintColor={colors.primary}
-                />
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={colors.primary} />
             }
         >
             <View style={styles.header}>
@@ -56,16 +64,42 @@ export function StandingsScreen({ navigation }: Props) {
                         Constructors
                     </Text>
                 </TouchableOpacity>
+                <TouchableOpacity
+                    style={[styles.tab, activeTab === 'h2h' && styles.tabActive]}
+                    onPress={() => setActiveTab('h2h')}
+                >
+                    <Text style={[styles.tabText, activeTab === 'h2h' && styles.tabTextActive]}>
+                        H2H
+                    </Text>
+                </TouchableOpacity>
             </View>
 
             {isLoading && <ActivityIndicator color={colors.primary} />}
-            {error && (
-                <EmptyState
-                    emoji="⚠️"
-                    title="Σφάλμα φόρτωσης"
-                    subtitle="Κάνε pull to refresh για να δοκιμάσεις ξανά"
-                />
+            {error && <EmptyState emoji="⚠️" title="Σφάλμα φόρτωσης" subtitle="Κάνε pull to refresh" />}
+
+            {activeTab === 'h2h' && (
+                <>
+                    <H2HCard
+                        driver1={driver1}
+                        driver2={driver2}
+                        onSelectDriver1={() => setSelectingSlot(1)}
+                        onSelectDriver2={() => setSelectingSlot(2)}
+                    />
+                    {selectingSlot && (
+                        <Text style={styles.selectHint}>
+                            Επίλεξε οδηγό για τη θέση {selectingSlot}
+                        </Text>
+                    )}
+                    {selectingSlot && drivers.map((item) => (
+                        <DriverRow
+                            key={item.Driver.driverId}
+                            item={item}
+                            onPress={() => handleDriverSelect(item)}
+                        />
+                    ))}
+                </>
             )}
+
             {activeTab === 'drivers' && drivers.map((item) => (
                 <DriverRow
                     key={item.Driver.driverId}
@@ -89,4 +123,5 @@ export function StandingsScreen({ navigation }: Props) {
             ))}
         </ScrollView>
     );
+
 }
