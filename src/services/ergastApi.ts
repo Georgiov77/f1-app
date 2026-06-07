@@ -34,6 +34,11 @@ export async function getRaceResults(round: string) {
     return res.data.MRData.RaceTable.Races[0]?.Results ?? [];
 }
 
+export async function getLastRaceResults() {
+    const res = await client.get('/current/last/results.json');
+    return res.data.MRData.RaceTable.Races[0];
+}
+
 export async function getDriverResults(driverId: string) {
     const res = await client.get(`/current/drivers/${driverId}/results.json`);
     return res.data.MRData.RaceTable.Races;

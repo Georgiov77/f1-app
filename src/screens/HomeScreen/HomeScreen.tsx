@@ -1,7 +1,9 @@
 import {View, Text, ScrollView, RefreshControl} from 'react-native';
 import { useNextRace } from '@hooks/useNextRace';
+import {useLastRace} from "@hooks/useLastRace";
 import { RaceCard } from '@components/RaceCard/RaceCard';
 import { RaceCardSkeleton } from '@components/Skeleton/RaceCardSkeleton';
+import {LastRaceCard} from "@components/LastRaceCard/LastRaceCard";
 import { useTheme } from '../../context/ThemeContext';
 import { createStyles } from './HomeScreen.styles';
 import {useState} from "react";
@@ -11,6 +13,7 @@ export function HomeScreen() {
     const { colors } = useTheme();
     const styles = createStyles(colors);
     const { race, isLoading, error, refresh } = useNextRace();
+    const { race: lastRace, results } = useLastRace();
     const [refreshing, setRefreshing] = useState(false);
 
     const onRefresh = async () => {
@@ -38,6 +41,9 @@ export function HomeScreen() {
             {isLoading && <RaceCardSkeleton />}
             {error && <Text style={styles.errorText}>Σφάλμα φόρτωσης</Text>}
             {race && <RaceCard race={race} />}
+            {lastRace && results.length > 0 && (
+                <LastRaceCard race={lastRace} results={results} />
+            )}
         </ScrollView>
     );
 }
