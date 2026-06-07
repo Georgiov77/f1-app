@@ -39,6 +39,7 @@ export function StandingsScreen({ navigation }: Props) {
     return (
         <ScrollView
             style={styles.container}
+            contentContainerStyle={{ paddingBottom: 100 }}
             refreshControl={
                 <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={colors.primary} />
             }

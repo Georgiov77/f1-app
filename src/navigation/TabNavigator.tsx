@@ -6,6 +6,7 @@ import { ScheduleStack } from './ScheduleStack';
 import { StandingsStack } from './StandingsStack';
 import { useTheme } from '../context/ThemeContext';
 import {hapticMedium} from "@utils/haptics";
+import {BlurView} from "expo-blur";
 
 const Tab = createBottomTabNavigator();
 
@@ -34,9 +35,18 @@ export function TabNavigator() {
                     </TouchableOpacity>
                 ),
                 tabBarStyle: {
-                    backgroundColor: colors.bgCard,
-                    borderTopColor: colors.border,
+                    position: 'absolute',
+                    backgroundColor: 'transparent',
+                    borderTopWidth: 0,
+                    elevation: 0,
                 },
+                tabBarBackground: () => (
+                    <BlurView
+                        intensity={80}
+                        tint={mode === 'dark' ? 'dark' : 'light'}
+                        style={{ flex: 1 }}
+                    />
+                ),
                 tabBarActiveTintColor: colors.primary,
                 tabBarInactiveTintColor: colors.textMuted,
                 tabBarIcon: ({ color }) => {

@@ -26,6 +26,7 @@ export function ScheduleScreen({ navigation }: Props) {
     return (
         <ScrollView
             style={styles.container}
+            contentContainerStyle={{ paddingBottom: 100 }}
             refreshControl={
                 <RefreshControl
                     refreshing={refreshing}

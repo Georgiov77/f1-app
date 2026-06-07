@@ -21,7 +21,10 @@ export function DriverDetailScreen({ route, navigation }: Props) {
     const constructor = standing?.Constructors[0];
 
     return (
-        <ScrollView style={styles.container}>
+        <ScrollView
+            style={styles.container}
+            contentContainerStyle={{ paddingBottom: 100 }}
+        >
             <View style={styles.header}>
                 <TouchableOpacity
                     style={styles.backButton}
