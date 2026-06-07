@@ -3,6 +3,7 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { ScheduleStackParams } from '@f1types/navigation';
 import { useRaceResults } from '@hooks/useRaceResults';
 import { TeamBadge } from '@components/TeamBadge/TeamBadge';
+import {EmptyState} from "@components/EmptyState/EmptyState";
 import { createStyles } from './RaceDetailScreen.styles';
 import { useTheme } from '../../context/ThemeContext';
 
@@ -29,7 +30,13 @@ export function RaceDetailScreen({ route, navigation }: Props) {
             <Text style={styles.sectionTitle}>ΑΠΟΤΕΛΕΣΜΑΤΑ</Text>
 
             {isLoading && <ActivityIndicator color={colors.primary} />}
-            {error && <Text>Σφάλμα φόρτωσης</Text>}
+            {error && (
+                <EmptyState
+                    emoji="⚠️"
+                    title="Σφάλμα φόρτωσης"
+                    subtitle="Κάνε pull to refresh για να δοκιμάσεις ξανά"
+                />
+            )}
 
             {results.map((result) => {
                 const isTop3 = Number(result.position) <= 3;

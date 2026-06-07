@@ -5,6 +5,7 @@ import { LiveScreen } from '@screens/LiveScreen/LiveScreen';
 import { ScheduleStack } from './ScheduleStack';
 import { StandingsStack } from './StandingsStack';
 import { useTheme } from '../context/ThemeContext';
+import {hapticMedium} from "@utils/haptics";
 
 const Tab = createBottomTabNavigator();
 
@@ -23,7 +24,12 @@ export function TabNavigator() {
                 headerTintColor: colors.text,
                 headerTitle: '',
                 headerRight: () => (
-                    <TouchableOpacity onPress={toggleTheme} style={{ marginRight: 16 }}>
+                    <TouchableOpacity
+                        onPress={() => {
+                            hapticMedium();
+                            toggleTheme();
+                        }}                        style={{ marginRight: 16 }}
+                    >
                         <Text style={{ fontSize: 20 }}>{mode === 'dark' ? '☀️' : '🌙'}</Text>
                     </TouchableOpacity>
                 ),

@@ -2,6 +2,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { createStyles } from './DriverRow.styles';
 import { TeamBadge } from '@components/TeamBadge/TeamBadge';
 import { useTheme } from '../../context/ThemeContext';
+import { hapticLight } from "@utils/haptics";
 import type { DriverStanding } from '@f1types/f1';
 
 interface Props {
@@ -16,7 +17,13 @@ export function DriverRow({ item, onPress }: Props) {
     const constructor = item.Constructors[0];
 
     return (
-        <TouchableOpacity onPress={onPress} style={styles.row}>
+        <TouchableOpacity
+            onPress={() => {
+                hapticLight();
+                onPress();
+            }}
+            style={styles.row}
+        >
             <Text style={[styles.position, isTop3 && styles.positionTop]}>
                 {item.position}
             </Text>

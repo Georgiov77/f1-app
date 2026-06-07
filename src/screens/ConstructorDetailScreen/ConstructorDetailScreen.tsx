@@ -4,6 +4,7 @@ import type { StandingsStackParams } from '@f1types/navigation';
 import { useConstructorDetail } from '@hooks/useConstructorDetail';
 import { useStandings } from '@hooks/useStandings';
 import { TeamBadge } from '@components/TeamBadge/TeamBadge';
+import {EmptyState} from "@components/EmptyState/EmptyState";
 import { createStyles } from './ConstructorDetailScreen.styles';
 import { useTheme } from '../../context/ThemeContext';
 
@@ -55,7 +56,13 @@ export function ConstructorDetailScreen({ route, navigation }: Props) {
             <Text style={styles.sectionTitle}>ΑΠΟΤΕΛΕΣΜΑΤΑ 2026</Text>
 
             {isLoading && <ActivityIndicator color={colors.primary} />}
-            {error && <Text>Σφάλμα φόρτωσης</Text>}
+            {error && (
+                <EmptyState
+                    emoji="⚠️"
+                    title="Σφάλμα φόρτωσης"
+                    subtitle="Κάνε pull to refresh για να δοκιμάσεις ξανά"
+                />
+            )}
 
             {races.map((race) =>
                 race.Results.map((result) => {

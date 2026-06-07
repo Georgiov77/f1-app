@@ -5,6 +5,7 @@ import type { StandingsStackParams } from '@f1types/navigation';
 import { useStandings } from '@hooks/useStandings';
 import { DriverRow } from '@components/DriverRow/DriverRow';
 import { ConstructorRow } from '@components/ConstructorRow/ConstructorRow';
+import {EmptyState} from "@components/EmptyState/EmptyState";
 import { createStyles } from './StandingsScreen.styles';
 import { useTheme } from '../../context/ThemeContext';
 
@@ -58,8 +59,13 @@ export function StandingsScreen({ navigation }: Props) {
             </View>
 
             {isLoading && <ActivityIndicator color={colors.primary} />}
-            {error && <Text>Σφάλμα φόρτωσης</Text>}
-
+            {error && (
+                <EmptyState
+                    emoji="⚠️"
+                    title="Σφάλμα φόρτωσης"
+                    subtitle="Κάνε pull to refresh για να δοκιμάσεις ξανά"
+                />
+            )}
             {activeTab === 'drivers' && drivers.map((item) => (
                 <DriverRow
                     key={item.Driver.driverId}

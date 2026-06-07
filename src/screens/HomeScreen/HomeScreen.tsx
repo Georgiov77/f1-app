@@ -1,12 +1,14 @@
-import {View, Text, ScrollView, ActivityIndicator, RefreshControl} from 'react-native';
+import {View, Text, ScrollView, RefreshControl} from 'react-native';
 import { useNextRace } from '@hooks/useNextRace';
 import { RaceCard } from '@components/RaceCard/RaceCard';
+import { RaceCardSkeleton } from '@components/Skeleton/RaceCardSkeleton';
 import { useTheme } from '../../context/ThemeContext';
 import { createStyles } from './HomeScreen.styles';
 import {useState} from "react";
+import {hapticSuccess} from "@utils/haptics";
 
 export function HomeScreen() {
-    const { colors, toggleTheme, mode } = useTheme();
+    const { colors } = useTheme();
     const styles = createStyles(colors);
     const { race, isLoading, error, refresh } = useNextRace();
     const [refreshing, setRefreshing] = useState(false);
@@ -14,6 +16,7 @@ export function HomeScreen() {
     const onRefresh = async () => {
         setRefreshing(true);
         await refresh();
+        hapticSuccess();
         setRefreshing(false);
     };
 
@@ -32,7 +35,7 @@ export function HomeScreen() {
                 <Text style={styles.season}>{new Date().getFullYear()} Season</Text>
             </View>
 
-            {isLoading && <ActivityIndicator color={colors.primary} />}
+            {isLoading && <RaceCardSkeleton />}
             {error && <Text style={styles.errorText}>Σφάλμα φόρτωσης</Text>}
             {race && <RaceCard race={race} />}
         </ScrollView>

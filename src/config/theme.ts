@@ -14,6 +14,7 @@ export const darkColors = {
     bg: '#0F0F0F',
     bgCard: '#1A1A1A',
     bgSubtle: '#242424',
+    bgElevated: '#2E2E2E',
     text: '#FFFFFF',
     textMuted: '#8A8A8A',
     border: '#2E2E2E',
@@ -24,6 +25,7 @@ export const lightColors = {
     bg: '#F5F5F5',
     bgCard: '#FFFFFF',
     bgSubtle: '#EBEBEB',
+    bgElevated: '#D5D5D5',
     text: '#0F0F0F',
     textMuted: '#6B6B6B',
     border: '#E0E0E0',
@@ -52,6 +54,7 @@ export const spacing = {
     md: 16,
     lg: 24,
     xl: 32,
+    '2xl': 40,
 };
 
 export const radius = {

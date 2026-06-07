@@ -6,6 +6,7 @@ import { useSchedule } from '@hooks/useSchedule';
 import { formatRaceDate } from '@utils/formatDate';
 import { createStyles } from './ScheduleScreen.styles';
 import { useTheme } from '../../context/ThemeContext';
+import {EmptyState} from "@components/EmptyState/EmptyState";
 
 type Props = NativeStackScreenProps<ScheduleStackParams, 'ScheduleList'>;
 
@@ -38,7 +39,13 @@ export function ScheduleScreen({ navigation }: Props) {
             </View>
 
             {isLoading && <ActivityIndicator color={colors.primary} />}
-            {error && <Text>Σφάλμα φόρτωσης</Text>}
+            {error && (
+                <EmptyState
+                    emoji="⚠️"
+                    title="Σφάλμα φόρτωσης"
+                    subtitle="Κάνε pull to refresh για να δοκιμάσεις ξανά"
+                />
+            )}
 
             {races.map((race) => {
                 const isPast = new Date(race.date) < today;

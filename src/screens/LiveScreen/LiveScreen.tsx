@@ -2,6 +2,7 @@ import { View, Text, ScrollView, ActivityIndicator } from 'react-native';
 import { useLiveSession } from '@hooks/useLiveSession';
 import { createStyles } from './LiveScreen.styles';
 import { LiveDriverRow } from '@components/LiveDriverRow/LiveDriverRow';
+import { EmptyState } from '@components/EmptyState/EmptyState';
 import { useTheme } from '../../context/ThemeContext';
 
 export function LiveScreen() {
@@ -32,12 +33,12 @@ export function LiveScreen() {
             {error && <Text style={styles.emptyText}>Σφάλμα φόρτωσης</Text>}
 
             {!isLoading && positions.length === 0 && (
-                <Text style={styles.emptyText}>
-                    Δεν υπάρχει live session αυτή τη στιγμή.{'\n'}
-                    Επέστρεψε κατά τη διάρκεια ενός race weekend! 🏁
-                </Text>
+                <EmptyState
+                    emoji="🏁"
+                    title="Δεν υπάρχει live session"
+                    subtitle="Επέστρεψε κατά τη διάρκεια ενός race weekend!"
+                />
             )}
-
             {positions.map((pos) => (
                 <LiveDriverRow
                     key={pos.driver_number}
