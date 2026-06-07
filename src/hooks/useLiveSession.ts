@@ -50,5 +50,5 @@ export function useLiveSession() {
         return drivers.find((d) => d.driver_number === driverNumber);
     };
 
-    return { session, positions, isLoading, error, getDriver };
+    return { session, positions, isLoading, error, getDriver, refresh: fetchData };
 }
