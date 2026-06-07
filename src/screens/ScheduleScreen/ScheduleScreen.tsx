@@ -48,8 +48,10 @@ export function ScheduleScreen({ navigation }: Props) {
             )}
 
             {races.map((race) => {
-                const isPast = new Date(race.date) < today;
-                return (
+                const raceDateTime = race.time
+                    ? new Date(`${race.date}T${race.time}`)
+                    : new Date(race.date);
+                const isPast = raceDateTime < today;                return (
                     <TouchableOpacity
                         key={race.round}
                         style={[styles.raceItem, isPast && styles.past]}

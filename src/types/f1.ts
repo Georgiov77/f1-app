@@ -101,3 +101,10 @@ export interface DriverRace {
     date: string;
     Results: RaceResult[];
 }
+
+export interface LapTime {
+    driver_number: number;
+    lap_number: number;
+    lap_duration: number | null;
+    is_pit_out_lap: boolean;
+}

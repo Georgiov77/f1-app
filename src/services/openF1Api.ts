@@ -33,3 +33,13 @@ export async function getLatestSession(): Promise<Session> {
     });
     return res.data[0];
 }
+
+export async function getLapTimes(driverNumber: number) {
+    const res = await client.get('/laps', {
+        params: {
+            session_key: 'latest',
+            driver_number: driverNumber,
+        },
+    });
+    return res.data;
+}

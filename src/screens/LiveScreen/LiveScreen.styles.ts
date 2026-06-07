@@ -45,4 +45,22 @@ export const createStyles = (colors: Colors) => StyleSheet.create({
         marginTop: spacing.xl,
         paddingHorizontal: spacing.lg,
     },
+    lapInfo: {
+        margin: spacing.lg,
+        padding: spacing.md,
+        backgroundColor: colors.bgCard,
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: colors.primary,
+    },
+    lapTitle: {
+        fontSize: fontSize.sm,
+        fontWeight: 'bold',
+        color: colors.primary,
+        marginBottom: spacing.xs,
+    },
+    lapText: {
+        fontSize: fontSize.sm,
+        color: colors.text,
+    },
 });

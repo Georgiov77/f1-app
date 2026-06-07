@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import { createStyles } from './LiveDriverRow.styles';
 import { useTheme } from '../../context/ThemeContext';
 import type { LivePosition, SessionDriver } from '@f1types/f1';
@@ -6,9 +6,10 @@ import type { LivePosition, SessionDriver } from '@f1types/f1';
 interface Props {
     position: LivePosition;
     driver?: SessionDriver;
+    onPress?: () => void;
 }
 
-export function LiveDriverRow({ position, driver }: Props) {
+export function LiveDriverRow({ position, driver, onPress }: Props) {
     const { colors } = useTheme();
     const styles = createStyles(colors);
     const teamColor = driver?.team_colour
@@ -17,7 +18,7 @@ export function LiveDriverRow({ position, driver }: Props) {
     const isTop3 = position.position <= 3;
 
     return (
-        <View style={styles.row}>
+        <TouchableOpacity onPress={onPress} style={styles.row}>
             <Text style={[styles.position, isTop3 && styles.positionTop]}>
                 {position.position}
             </Text>
@@ -30,6 +31,6 @@ export function LiveDriverRow({ position, driver }: Props) {
                     {driver?.team_name ?? '—'}
                 </Text>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 }
