@@ -13,16 +13,16 @@
 - Path aliases & TypeScript
 
 ## 🚧 v1.1 — Polish
-- [ ] Persist theme (AsyncStorage)
-- [ ] Skeleton loading αντί για spinner
-- [ ] Empty states με καλύτερο UI
-- [ ] Haptic feedback στα buttons
-- [ ] App icon με F1 theme
+- [x] Persist theme (AsyncStorage)
+- [x] Skeleton loading αντί για spinner
+- [x] Empty states με καλύτερο UI
+- [x] Haptic feedback στα buttons
+- [x] App icon με F1 theme
 
 ## 🔮 v1.2 — Features
-- [ ] Last race results στο Home screen
-- [ ] Lap times στο Live screen
-- [ ] Head-to-head σύγκριση οδηγών
+- [x] Last race results στο Home screen
+- [x] Lap times στο Live screen
+- [x] Head-to-head σύγκριση οδηγών
 - [ ] Push notifications για sessions
 
 ## 💡 v2.0 — Fun
